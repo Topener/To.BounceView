@@ -1,5 +1,5 @@
 # To.BounceView
-To.BounceView is a bouncing view widget for Titanium. It basically is a `View` wrapper with a resize method that animates vertically only.
+To.BounceView is a bouncing view widget for Titanium. It basically is a `View` wrapper with a resize method that animates vertically and horizontally.
 
 TODO:
 
@@ -30,3 +30,25 @@ $.bouncyView.resize(300, 300, 50);
 ```
 
 When resizing to a size it already is, it will shrink 90% and then go back to 100% again.
+
+An extended example would be a view with a couple of buttons, that animate from behind a single button as often shown.
+
+```xml
+<Widget src="To.BounceView" id="buttonsView" onClick="clickButtons">
+    <View width="60" height="60" backgroundColor="red" right="0" bottom="0" zIndex="5" onClick="clickButtons" />
+    <View width="60" height="60" backgroundColor="yellow" right="0" top="0" zIndex="3" />
+    <View width="60" height="60" backgroundColor="green" left="0" top="0" zIndex="3" />
+    <View width="60" height="60" backgroundColor="green" left="0" bottom="0" zIndex="3" />
+</Widget>
+```
+
+And the added function to expand it
+
+```js
+var buttonsExpanded = false;
+function clickButtons(){
+	var size = buttonsExpanded ? 60 : 175;
+	$.buttonsView.resize(size,size);
+	buttonsExpanded = !buttonsExpanded;
+}
+```
