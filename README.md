@@ -57,3 +57,7 @@ If you don't want it to bounce, set the 4th parameter to true
 ```js
 $.bouncyView.resize(300, 300, null, true);
 ```
+
+Example:
+
+![Example gif](http://zippy.gfycat.com/DarlingFairHornet.gif)
