@@ -22,7 +22,7 @@ Resizing the view (horizontally) is also easy, just call the resize method:
 $.bouncyView.resize(300,300);
 ```
 
-By default the speed of the animation is 250ms. That means the total animation will last 500ms. This can be adjusted in the 2nd parameter in the resize function. 50ms would be a good amount for a button press for example
+By default the speed of the animation is 250ms. That means the total animation will last 500ms. This can be adjusted in the 3rd parameter in the resize function. 50ms would be a good amount for a button press for example
 
 ```js
 // resize to 300
