@@ -1,0 +1,13 @@
+{
+	"id": "To.BounceView",
+	"name": "To.BounceView",
+	"description" : "A view that bounces on resize",
+	"author": "Rene Pot",
+	"version": "0.1",
+	"copyright":"Copyright (c) 2015",
+	"license":"Apache License, Version 2.0",
+	"min-alloy-version": "1.0",
+	"min-titanium-version":"3.5.1",
+	"tags":"view, bounce, animation",
+	"platforms":"ios"
+}
