@@ -1,8 +1,9 @@
 var args = arguments[0] || {};
-exports.resize = function(height, width, speed){
+exports.resize = function(height, width, speed, noBounce){
 	
 	height = height || $.funky.rect.height;
 	width = width || $.funky.rect.width;
+	noBounce = noBounce || false;
 	speed = speed || 250;
 	var bounceHeight = 0;
 	var bounceWidth = 0;
@@ -39,12 +40,15 @@ exports.resize = function(height, width, speed){
 		duration: speed
 	});
 	
-	bounce.addEventListener('complete', function cb(){
-		$.funky.animate(normal);
-		bounce.removeEventListener('complete', cb);
-	});
-	$.funky.animate(bounce);
-
+	if (!noBounce){
+		bounce.addEventListener('complete', function cb(){
+			$.funky.animate(normal);
+			bounce.removeEventListener('complete', cb);
+		});
+		$.funky.animate(bounce);
+		return;
+	}
+	$.funky.animate(normal);
 };
 
 exports.applyProperties = $.funky.applyProperties;
