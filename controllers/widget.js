@@ -1,14 +1,14 @@
 var args = arguments[0] || {};
-exports.resize = function(height){
-	
+exports.resize = function(height, speed){
+	speed = speed || 250;
 	if ($.funky.rect.height < height){
 		var bigger = Ti.UI.createAnimation({
 			height: (height * 1.1),
-			duration: 250
+			duration: speed
 		});
 		var normal = Ti.UI.createAnimation({
 			height: height,
-			duration: 250
+			duration: speed
 		});
 		bigger.addEventListener('complete', function cb(){
 			$.funky.animate(normal);
@@ -18,11 +18,11 @@ exports.resize = function(height){
 	} else {
 		var smaller = Ti.UI.createAnimation({
 			height: (height * 0.9),
-			duration: 250
+			duration: speed
 		});
 		var normal = Ti.UI.createAnimation({
 			height: height,
-			duration: 250
+			duration: speed
 		});
 		smaller.addEventListener('complete', function cb(){
 			$.funky.animate(normal);
