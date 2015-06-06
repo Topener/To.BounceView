@@ -3,7 +3,7 @@ To.BounceView is a bouncing view widget for Titanium. It basically is a `View` w
 
 TODO:
 
-- add horizontal scrolling support
+- add horizontal scaling support (and also combinations)
 - add support for more events
 
 Implementing it is very easy, just add it to the view
