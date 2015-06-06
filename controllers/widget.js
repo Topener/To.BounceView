@@ -1,35 +1,50 @@
 var args = arguments[0] || {};
-exports.resize = function(height, speed){
+exports.resize = function(height, width, speed){
+	
+	height = height || $.funky.rect.height;
+	width = width || $.funky.rect.width;
 	speed = speed || 250;
-	if ($.funky.rect.height < height){
-		var bigger = Ti.UI.createAnimation({
-			height: (height * 1.1),
-			duration: speed
-		});
-		var normal = Ti.UI.createAnimation({
-			height: height,
-			duration: speed
-		});
-		bigger.addEventListener('complete', function cb(){
-			$.funky.animate(normal);
-			bigger.removeEventListener('complete', cb);
-		});
-		$.funky.animate(bigger);
+	var bounceHeight = 0;
+	var bounceWidth = 0;
+	
+	if (height !== $.funky.rect.height){
+		if (height > $.funky.rect.height){
+			bounceHeight = height * 1.1;
+		} else {
+			bounceHeight = height * 0.9;
+		}
 	} else {
-		var smaller = Ti.UI.createAnimation({
-			height: (height * 0.9),
-			duration: speed
-		});
-		var normal = Ti.UI.createAnimation({
-			height: height,
-			duration: speed
-		});
-		smaller.addEventListener('complete', function cb(){
-			$.funky.animate(normal);
-			smaller.removeEventListener('complete', cb);
-		});
-		$.funky.animate(smaller);
+		bounceHeight = height;
 	}
+	
+	if (width !== $.funky.rect.width){
+		if (width > $.funky.rect.width){
+			bounceWidth = width * 1.1;
+		} else {
+			bounceWidth = width * 0.9;
+		}
+	} else {
+		bounceWidth = width;
+	}
+	
+	var bounce = Ti.UI.createAnimation({
+		height: bounceHeight,
+		width: bounceWidth,
+		duration: speed
+	});
+	
+	var normal = Ti.UI.createAnimation({
+		height: height,
+		width: width,
+		duration: speed
+	});
+	
+	bounce.addEventListener('complete', function cb(){
+		$.funky.animate(normal);
+		bounce.removeEventListener('complete', cb);
+	});
+	$.funky.animate(bounce);
+
 };
 
 exports.applyProperties = $.funky.applyProperties;
