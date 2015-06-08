@@ -8,7 +8,7 @@ TODO:
 Implementing it is very easy, just add it to the view
 
 ```xml
-<Widget src="To.BounceView" id=“bouncyView” onClick="clickBottom">
+<Widget src="To.BounceView" id="bouncyView" onClick="clickBottom">
     <Label>Awesome</Label>
 </Widget>
 ```

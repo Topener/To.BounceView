@@ -1,4 +1,26 @@
 var args = arguments[0] || {};
+
+/**
+ * Android doesn't automatically add child views. 
+ */
+if (OS_ANDROID){
+	_.each(args.children,function(child){
+		$.funky.add(child);
+	});
+}
+
+// exposting the add and remove properties
+exports.add = $.funky.add;
+exports.remove = $.funky.remove;
+
+/**
+ * Resize the widget view with properties. 
+ * 
+ * @param {Integer} The new height of the view  
+ * @param {Integer} The new width of the view
+ * @param {Integer} The speed of which the animation should happen in milliseconds
+ * @param {Boolean} Should the resize enable a bounce effect? The result is 10% bigger or smaller depending on the resize, and after bounce it will return to 100%. With bounce the speed is 2x the speed provided in the 3rd parameter 
+ */
 exports.resize = function(height, width, speed, noBounce){
 	
 	height = height || $.funky.rect.height;
@@ -51,12 +73,19 @@ exports.resize = function(height, width, speed, noBounce){
 	$.funky.animate(normal);
 };
 
+/**
+ * the option to call applyproperties on the view
+ */
 exports.applyProperties = $.funky.applyProperties;
 
 _.each(args,function(arg, key){
 	$.funky[key] = arg;
 });
 
+/**
+ * a generic event function to expose events
+ * @param {Object} event
+ */
 function onEvent(event){
 	$.trigger(event.type,event);
 }
