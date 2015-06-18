@@ -62,6 +62,18 @@ exports.resize = function(height, width, speed, noBounce){
 		duration: speed
 	});
 	
+	/**
+	 * fix heights for iOS, because when the width/height is 0, it will not animate
+	 */
+	if (OS_IOS){
+		if ($.funky.rect.width === 0){
+			$.funky.width = 1;
+		}
+		if ($.funky.rect.height === 0){
+			$.funky.height = 1;
+		}
+	}
+	
 	if (!noBounce){
 		bounce.addEventListener('complete', function cb(){
 			$.funky.animate(normal);
