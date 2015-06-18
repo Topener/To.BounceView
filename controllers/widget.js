@@ -27,8 +27,8 @@ exports.remove = $.funky.remove;
  */
 exports.resize = function(height, width, sp, nb){
 	
-	height = height || $.funky.rect.height;
-	width = width || $.funky.rect.width;
+	height = height === null ? $.funky.rect.height : height;
+	width = width === null ? $.funky.rect.width : width;
 	noBounce = nb || noBounce;
 	speed = sp || speed;
 	var bounceHeight = 0;
