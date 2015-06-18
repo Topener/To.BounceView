@@ -1,7 +1,10 @@
 # To.BounceView
 To.BounceView is a bouncing view widget for Titanium. It basically is a `View` wrapper with a resize method that animates vertically and horizontally.
 
-![Example gif](http://zippy.gfycat.com/DarlingFairHornet.gif)
+
+Example:
+
+![Example gif](http://zippy.gfycat.com/DarlingFairHornet.gif) | ![Another Example](http://zippy.gfycat.com/PortlySpecificBrownbear.gif)
 
 Implementing it is very easy, just add it to the view
 
@@ -55,8 +58,6 @@ If you don't want it to bounce, set the 4th parameter to true
 ```js
 $.bouncyView.resize(300, 300, null, true);
 ```
-
-Example:
 
 
 If you want it to bounce less/more than the default 10%, set it through the `setBounceRate` function
