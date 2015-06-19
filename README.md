@@ -21,9 +21,11 @@ Are you using this module? Let me know! I want to build a showcase here!
 Implementing it is very easy, just add it to the view
 
 ```xml
-<Widget src="To.BounceView" id="bouncyView" onClick="clickBottom">
-    <Label>Awesome</Label>
-</Widget>
+<Window>
+    <Widget src="To.BounceView" id="bouncyView" onClick="clickBottom">
+        <Label>Awesome</Label>
+    </Widget>
+</Window>
 ```
 
 All properties set in the tss will be applied to the view created, and it also supports all subviews as normal.
