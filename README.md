@@ -9,12 +9,12 @@ To.BounceView is a bouncing view widget for Titanium. It basically is a `View` w
 ### How to get it
 Install through [gitt.io](http://gitt.io/component/To.BounceView)
 
+`$ gittio install To.BounceView`
+
 Or download by downloading the ZIP. 
 
 ### Using it?
 Are you using this module? Let me know! I want to build a showcase here!
-
-`$ gittio install To.BounceView`
 
 ### Implementation
 
