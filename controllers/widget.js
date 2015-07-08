@@ -29,7 +29,7 @@ exports.resize = function(height, width, sp, nb){
 	
 	height = height === null ? $.funky.rect.height : height;
 	width = width === null ? $.funky.rect.width : width;
-	noBounce = nb || noBounce;
+    noBounce = typeof nb !== undefined ? nb : noBounce;
 	speed = sp || speed;
 	var bounceHeight = 0;
 	var bounceWidth = 0;
