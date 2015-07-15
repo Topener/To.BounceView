@@ -1,17 +1,32 @@
+
 var args = arguments[0] || {};
-var speed = 250;
-var noBounce = false;
-var positiveBounce = false;
-var bounceRate = 0.1;
+
+var props = {
+    speed: 250,
+    noBounce: false,
+    positiveBounce: false,
+    bounceRate: 0.1,
+    horizontalBounce: true,
+    verticalBounce: true
+};
 
 /**
  * Android doesn't automatically add child views. 
  */
 if (OS_ANDROID){
-	_.each(args.children,function(child){
-		$.funky.add(child);
-	});
+    _.each(args.children,function(child){
+        $.funky.add(child);
+    });
 }
+
+/**
+ * are any of the props set through arguments? If so, apply them!
+ */
+_.each(props,function(a, name){
+    if (args.hasOwnProperty(name)){
+        props[name] = args[name];
+    };
+});
 
 // exposting the add and remove properties
 exports.add = $.funky.add;
@@ -26,72 +41,72 @@ exports.remove = $.funky.remove;
  * @param {Boolean} Should the resize enable a bounce effect? The result is 10% bigger or smaller depending on the resize, and after bounce it will return to 100%. With bounce the speed is 2x the speed provided in the 3rd parameter 
  */
 exports.resize = function(height, width, sp, nb){
-	
-	height = height === null ? $.funky.rect.height : height;
-	width = width === null ? $.funky.rect.width : width;
-    noBounce = typeof nb !== undefined ? nb : noBounce;
-	speed = sp || speed;
-	var bounceHeight = 0;
-	var bounceWidth = 0;
-	
-	if (height !== $.funky.rect.height){
-		if (height > $.funky.rect.height){
-			bounceHeight = height * (1 + bounceRate);
-		} else {
-			bounceHeight = height * (1 - bounceRate);
-		}
-	} else {
-		bounceHeight = height;
-	}
-	
-	if (width !== $.funky.rect.width){
-		if (width > $.funky.rect.width){
-			bounceWidth = width * (1 + bounceRate);
-		} else {
-			bounceWidth = width * (1 - bounceRate);
-		}
-	} else {
-		bounceWidth = width;
-	}
-	
-	if (width === $.funky.rect.width && height === $.funky.rect.height){
-		bounceHeight = height * (positiveBounce ? (1 + bounceRate) : (1 - bounceRate));
-		bounceWidth = width * (positiveBounce ? (1 + bounceRate) : (1 - bounceRate));
-	}
-	
-	var bounce = Ti.UI.createAnimation({
-		height: bounceHeight,
-		width: bounceWidth,
-		duration: speed
-	});
-	
-	var normal = Ti.UI.createAnimation({
-		height: height,
-		width: width,
-		duration: speed
-	});
-	
-	/**
-	 * fix heights for iOS, because when the width/height is 0, it will not animate
-	 */
-	if (OS_IOS){
-		if ($.funky.rect.width === 0){
-			$.funky.width = 1;
-		}
-		if ($.funky.rect.height === 0){
-			$.funky.height = 1;
-		}
-	}
-	
-	if (!noBounce){
-		bounce.addEventListener('complete', function cb(){
-			$.funky.animate(normal);
-			bounce.removeEventListener('complete', cb);
-		});
-		$.funky.animate(bounce);
-		return;
-	}
-	$.funky.animate(normal);
+    
+    height = height === null ? $.funky.rect.height : height;
+    width = width === null ? $.funky.rect.width : width;
+    props.noBounce = typeof nb !== undefined ? nb : props.noBounce;
+    props.speed = sp || props.speed;
+    var bounceHeight = 0;
+    var bounceWidth = 0;
+    
+    if (height !== $.funky.rect.height){
+        if (height > $.funky.rect.height){
+            bounceHeight = height * (1 + props.bounceRate);
+        } else {
+            bounceHeight = height * (1 - props.bounceRate);
+        }
+    } else {
+        bounceHeight = height;
+    }
+    
+    if (width !== $.funky.rect.width){
+        if (width > $.funky.rect.width){
+            bounceWidth = width * (1 + props.bounceRate);
+        } else {
+            bounceWidth = width * (1 - props.bounceRate);
+        }
+    } else {
+        bounceWidth = width;
+    }
+    
+    if (width === $.funky.rect.width && height === $.funky.rect.height){
+        bounceHeight = props.verticalBounce ? height * (props.positiveBounce ? (1 + props.bounceRate) : (1 - props.bounceRate)) : height;
+        bounceWidth = props.horizontalBounce ? width * (props.positiveBounce ? (1 + props.bounceRate) : (1 - props.bounceRate)) : width;
+    }
+    
+    var bounce = Ti.UI.createAnimation({
+        height: bounceHeight,
+        width: bounceWidth,
+        duration: props.speed
+    });
+    
+    var normal = Ti.UI.createAnimation({
+        height: height,
+        width: width,
+        duration: props.speed
+    });
+    
+    /**
+     * fix heights for iOS, because when the width/height is 0, it will not animate
+     */
+    if (OS_IOS){
+        if ($.funky.rect.width === 0){
+            $.funky.width = 1;
+        }
+        if ($.funky.rect.height === 0){
+            $.funky.height = 1;
+        }
+    }
+    
+    if (!props.noBounce){
+        bounce.addEventListener('complete', function cb(){
+            $.funky.animate(normal);
+            bounce.removeEventListener('complete', cb);
+        });
+        $.funky.animate(bounce);
+        return;
+    }
+    $.funky.animate(normal);
 };
 
 /**
@@ -100,7 +115,7 @@ exports.resize = function(height, width, sp, nb){
 exports.applyProperties = $.funky.applyProperties;
 
 _.each(args,function(arg, key){
-	$.funky[key] = arg;
+    $.funky[key] = arg;
 });
 
 /**
@@ -110,7 +125,7 @@ _.each(args,function(arg, key){
   * @param {Boolean} Will the bounce be positive or negative when the resize size is the same as current size  
 */
 exports.setPositiveBounce = function(bool){
-	positiveBounce = bool;
+    props.positiveBounce = bool;
 };
 
 /**
@@ -118,7 +133,7 @@ exports.setPositiveBounce = function(bool){
  * @param {Float} The bounce, based on difference. Default: 0.1. Value between 0.1 and 1
  */
 exports.setBounceRate = function(value){
-	bounceRate = value;
+    props.bounceRate = value;
 };
 
 /**
@@ -126,7 +141,23 @@ exports.setBounceRate = function(value){
  * @param {Integer} How fast should half the animation go? Speed in ms
  */
 exports.setSpeed = function(value){
-	speed = value;
+    props.speed = value;
+};
+
+/**
+ * Disable horizontal bouncing
+ * @param {Boolean} Bounce?
+ */
+exports.setHorizontalBounce = function(value){
+    props.horizontalBounce = value;
+}
+
+/**
+ * Disable vertical bouncing
+ * @param {Boolean} Bounce?
+ */
+exports.setVerticalBounce = function(value){
+    props.verticalBounce = value;
 }
 
 /**
@@ -134,5 +165,5 @@ exports.setSpeed = function(value){
  * @param {Object} event
  */
 function onEvent(event){
-	$.trigger(event.type,event);
+    $.trigger(event.type,event);
 }

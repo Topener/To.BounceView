@@ -73,6 +73,19 @@ If you don't want it to bounce, set the 4th parameter to true
 $.bouncyView.resize(300, 300, null, true);
 ```
 
+### Properties
+
+There are several properties that can be added to the BounceView on load, or trough the relevant setter.
+
+- speed
+- noBounce
+- positiveBounce
+- bounceRate
+- horizontalBounce
+- verticalBounce
+
+All these properties have a setter, and can also be provided in the `tss` in the controller that includes the widget.
+
 ### Extra configuration
 
 If you want it to bounce less/more than the default 10%, set it through the `setBounceRate` function
@@ -86,3 +99,13 @@ When you resize the view to the same size, the default is a button press style, 
 // let the view increase size, then shrink
 $.buttonsView.setPositiveBounce(true);
 ```
+
+If you just want to disable bouncing either horizontally or vertically
+```
+// disable horizontal bouncing
+$.buttonsView.setHorizontalBounce(false);
+
+// disable vertical bouncing
+$.buttonsView.setVerticalBounce(false);
+```
+

@@ -3,7 +3,7 @@
 	"name": "To.BounceView",
 	"description" : "A view that bounces on resize",
 	"author": "Rene Pot",
-	"version": "0.4.1",
+	"version": "0.5",
 	"copyright":"Copyright (c) 2015",
 	"license":"Apache License, Version 2.0",
 	"min-alloy-version": "1.0",
